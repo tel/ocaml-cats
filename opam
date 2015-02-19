@@ -1,0 +1,23 @@
+opam-version: "1.2"
+
+maintainer: "Joseph Abrahamson <me@jspha.com>"
+authors: [ "Joseph Abrahamson <me@jspha.com>" ]
+
+license: "BSD3"
+homepage: "https://github.com/tel/ocaml-cats"
+bug-reports: "https://github.com/tel/ocaml-cats/issues"
+dev-repo: "https://github.com/tel/ocaml-cats.git"
+
+tags: [
+  "category theory"
+  "signatures"
+]
+
+build: [
+  ["./configure" "--prefix=%{prefix}%"]
+  [make]
+]
+build-doc: ["make doc"]
+install: [make "install"]
+remove: ["ocamlfind" "remove" "fstreams"]
+depends: "ocamlfind" {build}
