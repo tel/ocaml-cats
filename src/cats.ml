@@ -52,7 +52,7 @@ module S0 = struct
       type t
       val mult : t -> t -> t
     end
-    
+
     (** Masks string concatenation, but string concatenation is a
         Semigroup. *)
     module Infix (S : S) = struct
@@ -252,7 +252,7 @@ module S1 = struct
       type 'a t
       val map : ('a -> 'b) -> ('a t -> 'b t)
     end
-    
+
   end
 
   (** Applicative (covariant) functors are types which respect
@@ -329,6 +329,87 @@ module S1 = struct
         include M
         let (^) = M.mult
       end
+    end
+  end
+
+  (** Monadic covariant functors are types which can be used to
+      represent binding in abstract contexts making them highly
+      suitable for embedded DSLs, especially those which capture side
+      effecting regions of code.
+
+      Laws include:
+
+      - [ pure a >>= f = f a ] ({i left identity})
+      - [ m >>= pure = m ] ({i right identity})
+      - [ (m >>= f) >>= g = m >>= fun x -> f x >>= g ] ({i associativity})
+
+      Another, perhaps more obvious formulation of these laws is that
+      they're the category laws of the {!Category.Kleisli} category of
+      the monad. In this form, the laws become
+
+      - [ pure >=> f = f ] ({i left identity})
+      - [ f >=> pure = f ] ({i right identity})
+      - [ f >=> (g >=> h) = (f >=> g) >=> h ] ({i associativity})
+
+  *)
+  module Monad = struct
+
+    module type S = sig
+      type 'a t
+      include Covariant.S with type 'a t := 'a t
+      include Applicative.S with type 'a t := 'a t
+      
+      val bind : ('a -> 'b t) -> ('a t -> 'b t)
+    end
+
+    module Infix (M : S) = struct
+      include M
+      let (<*>) = M.ap
+      let (<$>) = M.map
+      let (>>=) m k = M.bind k m
+      let (=<<) k m = M.bind k m
+      let (<<) m2 m1 = m1 >>= fun _ -> m2
+      let (>>) m1 m2 = m1 >>= fun _ -> m2
+      let (>=>) f g = fun x -> f x >>= g
+      let (<=<) g f = fun x -> f x >>= g
+    end
+
+  end
+
+  (** Comonad covariant functors are types which represent values in
+      context.
+
+      Laws include:
+
+      - [ w =>> extract = w ] ({i left identity })
+      - [ extract (w =>> f)  = f w ] ({i right identity })
+      - [ (w =>> g) =>> f = w =>> fun x -> f (x =>> g) ] ({i associativity })
+
+      Another, perhaps more obvious formulation of these laws is that
+      they're the category laws of the {!Category.CoKleisli} category
+      of the comonad. In this form, the laws become
+
+      - [ extract =>= f = f ] ({i left identity})
+      - [ f =>= extract = f ] ({i right identity})
+      - [ f =>= (g =>= h) = (f =>= g) =>= h ] ({i associativity})
+
+  *)
+  module Comonad = struct
+    module type S = sig
+      type 'a t
+      include Covariant.S with type 'a t := 'a t
+
+      val extract : 'a t -> 'a
+      val extend : ('a t -> 'b) -> ('a t -> 'b t)
+    end
+
+    module Infix (C : S) = struct
+      include C
+      let (<$>) = C.map
+      let (=>>) w k = C.extend k w
+      let (<<=) k w = C.extend k w
+      let (=>=) f g = fun x -> g (extend f x)
+      let (=<=) g f = fun x -> g (extend f x)
     end
   end
   
