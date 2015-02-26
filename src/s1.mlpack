@@ -1,6 +1,9 @@
-Covariant
 Applicative
-Monad
 Comonad
 Contravariant
+Covariant
 Divisible
+Group
+Monad
+Monoid
+Semigroup
