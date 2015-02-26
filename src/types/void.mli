@@ -6,6 +6,9 @@
     {!t} must actually never return. A hypothetical situation which
     offers a value of {!t} must be {!absurd}.
 
+    Technically this should be the bottom type but there's no way to
+    convince OCaml of this fact.
+
 *)
 
 type t = { absurd : 'a . 'a }
