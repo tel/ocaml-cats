@@ -5,3 +5,6 @@ setup.data
 setup.log
 
 *.docdir
+*.top
+*.byte
+*.native

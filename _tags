@@ -1,2 +1,4 @@
 true: safe_string
+<cats_top.ml>: thread, package(threads), package(utop)
+<cats.top>: use_cats, thread, package(threads), package(utop)
 <src>: include
