@@ -1,2 +1,7 @@
 S src
+S src/s0
+S src/s1
+B _build
 B _build/src
+B _build/src/s0
+B _build/src/s1

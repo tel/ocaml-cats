@@ -14,10 +14,8 @@ tags: [
 ]
 
 build: [
-  ["./configure" "--prefix=%{prefix}%"]
-  [make]
+  ["ocamlbuild" "cats.cma"]
+  ["ocamlbuild" "cats.cmxa"]
 ]
-build-doc: ["make doc"]
-install: [make "install"]
 remove: ["ocamlfind" "remove" "fstreams"]
 depends: "ocamlfind" {build}
