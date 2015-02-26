@@ -35,6 +35,7 @@ module Choice = struct
   
 end
 
+(** This is a looping construct. *)
 module Costrong = struct
 
   module type S = sig
