@@ -8,7 +8,7 @@
 
 *)
 
-type t
+type t = { absurd : 'a . 'a }
 (** The nonexistent data type. *)
 
 val absurd : t -> 'a
