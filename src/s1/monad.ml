@@ -23,9 +23,7 @@
 
 
 module type S = sig
-  type 'a t
-  include Covariant.S with type 'a t := 'a t
-  include Applicative.S with type 'a t := 'a t
+  include Applicative.S
       
   val bind : ('a -> 'b t) -> ('a t -> 'b t)
 end

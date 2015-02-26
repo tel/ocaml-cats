@@ -20,6 +20,6 @@
 *)
 
 module type S = sig
-  type 'a t
+  type -'a t
   val cap : ('a -> 'b) -> ('b t -> 'a t)
 end

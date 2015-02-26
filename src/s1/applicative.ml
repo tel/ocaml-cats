@@ -27,8 +27,7 @@
 
 *)
 module type S = sig
-  type 'a t
-  include Covariant.S with type 'a t := 'a t
+  include Covariant.S
       
   val pure : 'a -> 'a t
   val ap   : ('a -> 'b) t -> ('a t -> 'b t)
@@ -65,7 +64,7 @@ end
 *)
 module Monoidal = struct
   module type S = sig
-    type 'a t
+    type +'a t
     include Covariant.S with type 'a t := 'a t
         
     val unit : unit t

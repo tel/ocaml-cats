@@ -20,8 +20,7 @@
 *)
 
 module type S = sig
-  type 'a t
-  include Covariant.S with type 'a t := 'a t
+  include Covariant.S
       
   val extract : 'a t -> 'a
   val extend : ('a t -> 'b) -> ('a t -> 'b t)

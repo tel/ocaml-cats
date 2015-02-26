@@ -24,8 +24,7 @@
 *)
 
 module type S = sig
-  type 'a t
-  include Contravariant.S with type 'a t := 'a t
+  include Contravariant.S
       
   val divide  : ('a -> 'l * 'r) -> 'l t -> 'r t -> 'a t
   val conquer : unit t
