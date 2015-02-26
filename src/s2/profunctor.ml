@@ -49,8 +49,8 @@ module Cochoice = struct
 
   module type S = sig
     include S
-    val left  : (('a, 'x) Sum.t, ('b, 'x) Sum.t) t -> ('a, 'b) t
-    val right : (('x, 'a) Sum.t, ('x, 'b) Sum.t) t -> ('a, 'b) t
+    val unleft  : (('a, 'x) Sum.t, ('b, 'x) Sum.t) t -> ('a, 'b) t
+    val unright : (('x, 'a) Sum.t, ('x, 'b) Sum.t) t -> ('a, 'b) t
   end
   
 end
