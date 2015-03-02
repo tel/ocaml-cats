@@ -1,3 +1,4 @@
+
 (**
 
    Applicative (covariant) functors are types which respect
@@ -29,8 +30,8 @@
 module type S = sig
   include Covariant.S
 
-  val pure : 'a -> 'a t
-  val ap   : ('a -> 'b) t -> ('a t -> 'b t)
+  val pure : 'a -> ('e, 'a) t
+  val ap   : ('e, 'a -> 'b) t -> (('e, 'a) t -> ('e, 'b) t)
 end
 
 module Infix (A : S) = struct
@@ -64,11 +65,10 @@ end
 *)
 module Monoidal = struct
   module type S = sig
-    type +'a t
-    include Covariant.S with type 'a t := 'a t
+    include Covariant.S
 
-    val unit : unit t
-    val mult : 'a t -> 'b t -> ('a * 'b) t
+    val unit : ('e, unit) t
+    val mult : ('e, 'a) t -> ('e, 'b) t -> ('e, 'a * 'b) t
   end
 
   module Infix (M : S) = struct

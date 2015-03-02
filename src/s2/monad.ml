@@ -1,3 +1,4 @@
+
 (**
 
    Monadic covariant functors are types which can be used to
@@ -25,7 +26,7 @@
 module type S = sig
   include Applicative.S
 
-  val bind : ('a -> 'b t) -> ('a t -> 'b t)
+  val bind : ('a -> ('e, 'b) t) -> (('e, 'a) t -> ('e, 'b) t)
 end
 
 module Infix (M : S) = struct

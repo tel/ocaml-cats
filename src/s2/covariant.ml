@@ -1,3 +1,4 @@
+
 (**
 
    Covariant functors are data types which can be "mapped over". While
@@ -18,8 +19,7 @@
 
 *)
 
-
 module type S = sig
-  type +'a t
-  val map : ('a -> 'b) -> ('a t -> 'b t)
+  type (+'e, +'a) t
+  val map : ('a -> 'b) -> (('e, 'a) t -> ('e, 'b) t)
 end

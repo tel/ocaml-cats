@@ -1,3 +1,4 @@
+
 (**
 
    Comonad covariant functors are types which represent values in
@@ -22,8 +23,8 @@
 module type S = sig
   include Covariant.S
 
-  val extract : 'a t -> 'a
-  val extend : ('a t -> 'b) -> ('a t -> 'b t)
+  val extract : ('e, 'a) t -> 'a
+  val extend : (('e, 'a) t -> 'b) -> (('e, 'a) t -> ('e, 'b) t)
 end
 
 module Infix (C : S) = struct

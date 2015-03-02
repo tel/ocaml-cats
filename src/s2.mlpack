@@ -1,4 +1,8 @@
+Applicative
 Bicontravariant
 Bicovariant
+Comonad
+Covariant
 Category
+Monad
 Profunctor
